@@ -47,9 +47,15 @@ public class ClientContent extends JPanel implements Runnable {
 
 	}
 	public void paint() {
+		if (painter == null) {
+			return;
+		}
 		painter.paint(buffer.createGraphics());
 	}
 	public void runGameLogic() {
+		if (gameLogic == null) {
+			return;
+		}
 		gameLogic.gameloop();
 	}
 	public void update() {
