@@ -22,7 +22,6 @@ public class KeyManager implements KeyListener {
 		key.put("i", false);
 		key.put("j", false);
 		key.put("k", false);
-
 		key.put("l", false);
 		key.put("m", false);
 		key.put("n", false);
@@ -101,7 +100,15 @@ public class KeyManager implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		Boolean set = true;
+		allTheLogic(e, true);
+
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		allTheLogic(e, false);
+	}
+	public void allTheLogic(KeyEvent e, Boolean set) {
 		switch (e.getKeyCode()) {
 			case 8 :
 				key.put("backspace", set);
@@ -129,7 +136,6 @@ public class KeyManager implements KeyListener {
 				key.put("space", set);
 				break;
 		}
-		System.out.println(e.getKeyChar());
 
 		char c = Character.toLowerCase(e.getKeyChar());
 
@@ -239,12 +245,6 @@ public class KeyManager implements KeyListener {
 				break;
 
 		}
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-
 	}
 
 }
