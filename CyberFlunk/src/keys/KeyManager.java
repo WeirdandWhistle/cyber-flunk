@@ -2,12 +2,14 @@ package keys;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class KeyManager implements KeyListener {
 
 	private Map<String, Boolean> key = new HashMap<>();
+	private ArrayList<KeyPress> actions = new ArrayList<>();
 
 	public KeyManager() {
 
@@ -102,11 +104,18 @@ public class KeyManager implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		allTheLogic(e, true);
 
+		for (KeyPress action : actions) {
+			action.Action(e.getKeyCode());
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		allTheLogic(e, false);
+
+	}
+	public void addKeyPress(KeyPress action) {
+		actions.add(action);
 	}
 	public void allTheLogic(KeyEvent e, Boolean set) {
 		switch (e.getKeyCode()) {
@@ -130,6 +139,9 @@ public class KeyManager implements KeyListener {
 				break;
 			case 20 :
 				key.put("caps", set);
+				break;
+			case 27 :
+				key.put("esc", set);
 				break;
 			case 32 :
 				key.put(" ", set);
