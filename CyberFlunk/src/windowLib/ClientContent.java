@@ -19,6 +19,8 @@ public class ClientContent extends JPanel implements Runnable {
 	public boolean stop;
 	int frames;
 	long runtime = 0;
+	private long startTime;
+	private double deltaTime = 0.0;
 
 	public ClientContent(Dimension dem, int frames) {
 		this.frames = frames;
@@ -43,7 +45,7 @@ public class ClientContent extends JPanel implements Runnable {
 		runtime++;
 		Graphics2D g2d = buffer.createGraphics();
 		g2d.setColor(Color.white);
-		g2d.fillRect(0, 0, dem.height, dem.height);
+		g2d.fillRect(0, 0, dem.width, dem.height);
 
 	}
 	public void paint() {
@@ -74,13 +76,36 @@ public class ClientContent extends JPanel implements Runnable {
 		paint();
 		drawToScreen();
 	}
+	public double getFPS() {
+		return (double) runtime
+				/ (double) ((double) (System.currentTimeMillis() - startTime) / 1000);
+	}
+	public void onceASecond() {
+		System.out.println("FPS: " + Math.round(getFPS()));
+	}
+	public double getDeltaTime() {
+		return deltaTime;
+	}
 
 	@Override
 	public void run() {
+		new Thread(() -> {
+			while (!stop) {
+				try {
+					Thread.sleep(1000);
+					onceASecond();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}).start();;
 
 		double drawInterval = (1E9) / frames;
 		double nextDrawTime = System.nanoTime() + drawInterval;
 
+		long lastFrameMillis = System.currentTimeMillis();
+
+		startTime = System.currentTimeMillis();
 		while (!stop) {
 			double remainingTime = nextDrawTime - System.nanoTime();
 			remainingTime /= 1E6;
@@ -96,6 +121,8 @@ public class ClientContent extends JPanel implements Runnable {
 			}
 			nextDrawTime += drawInterval;
 
+			deltaTime = (double) (System.currentTimeMillis() - lastFrameMillis) / 1000;
+			lastFrameMillis = System.currentTimeMillis();
 			update();
 
 		}
