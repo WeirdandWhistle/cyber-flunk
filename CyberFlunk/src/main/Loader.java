@@ -15,6 +15,13 @@ public class Loader {
 		ClientContent cc = new ClientContent(GUI.DEFUALT_SIZE, 60);
 		cc.zoom(dem);
 		frame.add(cc);
+		frame.setResizable(true);
+		frame.setAutoRequestFocus(true);
+		frame.requestFocus();
+		frame.setUndecorated(true);
+
+		frame.setVisible(true);
+		frame.pack();
 
 		new SettingsManager(new Thread(cc), frame, cc);
 	}
