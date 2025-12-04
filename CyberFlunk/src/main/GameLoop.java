@@ -23,7 +23,8 @@ public class GameLoop implements Draw, GameLogic {
 
 	@Override
 	public void gameloop() {
-		player.move(sm.km, sm.gameWindow.getDeltaTime());
+
+		player.move(sm, sm.gameWindow.getDeltaTime());
 
 		screenX = (int) (player.getCenter().getX() - sm.gameWindow.buffer.getWidth() / 2);
 		screenY = (int) (player.getCenter().getY() - sm.gameWindow.buffer.getHeight() / 2);
@@ -37,6 +38,7 @@ public class GameLoop implements Draw, GameLogic {
 		if (screenY > sm.tm.map.size() * Tile.LENGTH - sm.gameWindow.buffer.getHeight()) {
 			screenY = sm.tm.map.size() * Tile.LENGTH - sm.gameWindow.buffer.getHeight();
 		}
+
 	}
 
 	@Override
@@ -44,6 +46,7 @@ public class GameLoop implements Draw, GameLogic {
 
 		sm.tm.draw(g2d, screenX, screenY);
 		player.draw(g2d, screenX, screenY);
+
 	}
 
 }
