@@ -18,7 +18,7 @@ public class Loader {
 		frame.setResizable(true);
 		frame.setAutoRequestFocus(true);
 		frame.requestFocus();
-		frame.setUndecorated(true);
+		frame.setUndecorated(false);
 
 		frame.setVisible(true);
 		frame.pack();
