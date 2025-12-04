@@ -16,7 +16,7 @@ public class SettingsManager {
 	public GUI frame;
 	public ClientContent gameWindow;
 	public Thread gameThread;
-	private GameLoop gl;
+	public GameLoop gl;
 	public TileManager tm;
 	public KeyManager km;
 
