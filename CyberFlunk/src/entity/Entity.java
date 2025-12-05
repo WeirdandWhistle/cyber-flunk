@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import tiles.SpiteSheet;
 import tiles.Tile;
 import tiles.TileManager;
 
@@ -15,8 +16,11 @@ public class Entity {
 			Tile.LENGTH / 2, Tile.LENGTH / 2);
 
 	public BufferedImage texture;
+	public SpiteSheet spiteSheet;
 	public Rectangle boudingBox;
 	public Rectangle hitbox;
+	public String direction;
+	public String lastDirection;
 
 	public Entity(Rectangle boundingBox) {
 		this.boudingBox = boundingBox;
